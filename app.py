@@ -44,3 +44,22 @@ def predict_datapoint():
 
 if __name__=="__main__":
     app.run(host="0.0.0.0")
+
+
+
+    from flask import Flask, render_template
+import subprocess
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    # Run the git status command to check the status of the working directory
+    git_status_output = subprocess.check_output(['git', 'status']).decode('utf-8')
+    
+    # Pass the git status information to the HTML template
+    return render_template('index.html', git_status=git_status_output)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
